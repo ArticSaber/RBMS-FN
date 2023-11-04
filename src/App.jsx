@@ -1,10 +1,9 @@
 import "./App.css";
-import Login from "./components/login/login";
-
+import DashBoard from "./components/dashboard/dashboard";
 function App() {
   return (
     <div className="App">
-      <Login />
+      <DashBoard/>
     </div>
   );
 }

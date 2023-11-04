@@ -3,7 +3,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/login/login";
-import DashboardPage from "./pages/DashboardPage/DashboardPage";
+// import DashboardPage from "./pages/DashboardPage/DashboardPage";
 // import Signup from "./components/signup/signup";
 const router = createBrowserRouter([
   {
@@ -18,10 +18,10 @@ const router = createBrowserRouter([
   //   path: "/signup",
   //   element: <Signup/>,
   // },
-  {
-    path: "/dashboard",
-    element:<DashboardPage/>,
-  }
+  // {
+  //   path: "/dashboard",
+  //   element:<DashboardPage/>,
+  // }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

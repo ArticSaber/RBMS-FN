@@ -3,6 +3,7 @@
    display: flex;
    align-items: center;
    height: 90vh;
+   justify-content: space-evenly;
   
 }
 .time-magangemet-image{
@@ -13,7 +14,7 @@
 .login-wrapper{
    background-color: white;
    border-radius: 20px;
-   width: 100%;  
+   width: 40vw;  
 }
 .login-rect{
    display: flex;
@@ -60,8 +61,11 @@
    padding: 10px;
 }
 .forgot-password{
-   display: flex;
-   width: 90%;
+width: auto;
+height: auto;
+float: right;
+/* margin-right:50px ; */
+
    color: #7C838A;
    font-family: Poppins;
    font-size: 20px;
@@ -73,14 +77,22 @@
 }
 .login-btn{
    background-color: rgba(74, 133, 246, 1);
-   margin-left: 50px;
+   /* margin-left: 50px; */
    width: 112px;
    height: 40px;
    border: none;
    color: white;
    cursor: pointer;
    border-radius: 2px;
-   margin-bottom:10px ;
+   /* margin-bottom:10px ; */
+
+}
+.forgot-container{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 1rem;
+
 }
 @media only screen and (max-width: 900px){
    .login-container{
@@ -96,16 +108,38 @@
       font-size: 15px;
    }
 }
-@media only screen and (max-width: 400px){
-   .login-container{
-      height: max-content;
-      background-color: rgba(74, 133, 246, 1);
+   @media only screen and (max-width: 415px){
+      .login-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+         background-color: rgba(74, 133, 246, 1);
+         height: 100vh;
+         width: auto;
+      }
+      .login-wrapper{
+         background-color: white;
+         border-radius: 20px;
+         width: 100%;  
+      }
+    
+      .forgot-password{
+         font-size: 15px;
+         margin-right: 0px;
+      }
+      .login-btn{
+         margin-left: 0px;
+      }
+      .time-magangemet-image{
+         display: none;
+      }
+      .forgot-container{
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+      }
    }
-   .time-magangemet-image{
-      height: 200px;
-      width: 200px;
-   }
-}
 
 
 /* .login {

@@ -96,12 +96,15 @@ const Login = () => {
               />
             </div>
           </div>
-          <Link to="/forgotPassword" className="forgot-password">
-            Forgot Password?
-          </Link>
+          <div className="forgot-container">
           <button type="submit" className="login-btn">
             Login
           </button>
+            
+          <Link to="/forgotPassword" className="forgot-password">
+            Forgot Password?
+          </Link>
+          </div>
         </form>
       </div>
     </React.Fragment>
