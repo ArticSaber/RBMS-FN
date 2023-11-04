@@ -4,7 +4,6 @@ import timeManagementImage from "../../assets/images/login-image.png";
 import userImage from "../../assets/images/user.svg";
 import lockImage from "../../assets/images/lock.svg";
 import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import "./login.css";
 const Login = () => {
   //   const nav = useNavigate();
