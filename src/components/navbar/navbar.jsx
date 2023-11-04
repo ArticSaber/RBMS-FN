@@ -1,4 +1,3 @@
-import './navbar.css'
 function navbar() {
   return (
     <div className="sidebar">
