@@ -5,7 +5,7 @@ import userImage from "../../assets/images/user.svg";
 import lockImage from "../../assets/images/lock.svg";
 import { Link } from "react-router-dom";
 // import { useDispatch } from "react-redux";
-import "./Login.css";
+import "./login.css";
 const Login = () => {
   //   const nav = useNavigate();
   //   const dispatch = useDispatch();
