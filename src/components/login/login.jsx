@@ -5,6 +5,7 @@ import userImage from "../../assets/images/user.svg";
 import lockImage from "../../assets/images/lock.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../../config";
 import { toast } from "react-toastify";
 
 import "./login.css";
@@ -20,7 +21,7 @@ const Login = () => {
       password: password,
     };
     axios
-      .post("http://localhost:3000/auth/login", Data, {
+      .post( BASE_URL + "/login", Data, {
         withCredentials: true,
       })
       .then((res) => {
