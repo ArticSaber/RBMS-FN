@@ -14,36 +14,46 @@ const Login = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const Data = {
-      email: email,
-      password: password,
-    };
-    axios
-      .post( BASE_URL + "/login", Data, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.Status) {
-          if (res.data.role === "user") {
-            nav("/userdashboard");
-          }
-          if (res.data.role === "admin") {
-            nav("/admindashboard");
-          }
-          if (res.data.role === "superadmin") {
-            nav("/superadmindashboard");
-          }
-        } else {
-          toast.error("Invalid Credentials");
-        }
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const response = await fetch(BASE_URL + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        credentials: "include",
       });
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      const res = await response.json();
+      console.log(res);
+
+      if (res.Status) {
+        if (res.role === "user") {
+          nav("/userdashboard");
+        }
+        if (res.role === "admin") {
+          nav("/admindashboard");
+        }
+        if (res.role === "superadmin") {
+          nav("/superadmindashboard");
+        }
+      } else {
+        toast.error("Invalid Credentials");
+      }
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+    }
+    console.log(formData);
   };
 
   return (
