@@ -1,56 +1,50 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import timeManagementImage from "../../assets/images/login-image.png";
 import userImage from "../../assets/images/user.svg";
 import lockImage from "../../assets/images/lock.svg";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 import "./login.css";
 const Login = () => {
-  //   const nav = useNavigate();
-  //   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const nav = useNavigate();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    const { email, password } = formData;
-
-    try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-        credentials: "include",
+    const Data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post("http://localhost:3000/auth/login", Data, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.Status) {
+          if (res.data.role === "user") {
+            nav("/userdashboard");
+          }
+          if (res.data.role === "admin") {
+            nav("/admindashboard");
+          }
+          if (res.data.role === "superadmin") {
+            nav("/superadmindashboard");
+          }
+        } else {
+          toast.error("Invalid Credentials");
+        }
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-      //   toast.info("Successfully logged in!");
-      // nav("/home");
-    } catch (error) {
-      //   toast.error(error.message);
-      console.log(error.message);
-    }
-    console.log(formData);
   };
 
-  const token = localStorage.getItem("token");
-  console.log(token);
   return (
     <React.Fragment>
       <div className="login-container">
@@ -72,11 +66,16 @@ const Login = () => {
             <div className="input-container">
               <img src={userImage} alt="user" className="image" />
               <input
+                autoComplete="off"
                 type="text"
                 placeholder="Enter the User Id"
                 name="email"
                 className="input-box"
-                onChange={handleChange}
+                value={email}
+                onChange={
+                  (e) => setemail(e.target.value)
+                  // dispatch(change({ name: "email", value: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -87,22 +86,27 @@ const Login = () => {
             <div className="input-container">
               <img src={lockImage} alt="lock" className="image" />
               <input
+                autoComplete="off"
                 type="password"
                 placeholder="Enter the Password"
                 name="password"
                 className="input-box"
-                onChange={handleChange}
+                value={password}
+                onChange={
+                  (e) => setpassword(e.target.value)
+                  // dispatch(change({ name: "password", value: e.target.value }))
+                }
               />
             </div>
           </div>
           <div className="forgot-container">
-          <button type="submit" className="login-btn">
-            Login
-          </button>
-            
-          <Link to="/forgotPassword" className="forgot-password">
-            Forgot Password?
-          </Link>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+
+            <Link to="/forgotPassword" className="forgot-password">
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>

@@ -1,4 +1,26 @@
-function navbar() {
+import React from "react";
+import axios from "axios";
+import { BASE_URL } from "../../../config";
+import { useNavigate } from "react-router-dom";
+
+function navbar({ user, admin, superadmin }) {
+  const nav = useNavigate();
+  axios.defaults.withCredentials = true;
+  const handleLogout = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/logout`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.Status) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -12,68 +34,50 @@ function navbar() {
         </div>
       </div>
       <ul className="sidebar-list">
-        <li className="sidebar-list-item">
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={18}
-              height={18}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-home"
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li className="sidebar-list-item active">
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={18}
-              height={18}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-shopping-bag"
-            >
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1={3} y1={6} x2={21} y2={6} />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>
-            <span>Admin</span>
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={18}
-              height={18}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-pie-chart"
-            >
-              <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-              <path d="M22 12A10 10 0 0 0 12 2v10z" />
-            </svg>
-            <span>Users</span>
-          </a>
-        </li>
-        
+        {superadmin && (
+          <li className="sidebar-list-item active">
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={18}
+                height={18}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-home"
+              >
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        )}
+        {admin && (
+          <li className="sidebar-list-item">
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={18}
+                height={18}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-pie-chart"
+              >
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                <path d="M22 12A10 10 0 0 0 12 2v10z" />
+              </svg>
+              <span>Users</span>
+            </a>
+          </li>
+        )}
       </ul>
       <div className="account-info">
         <div className="account-info-picture">
@@ -83,23 +87,30 @@ function navbar() {
           />
         </div>
         <div className="account-info-name">Monica G.</div>
-        
-        <button className="account-info-more">
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={handleLogout}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth={2}
+            strokeWidth={0.1}
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="feather feather-more-horizontal"
+            className=""
           >
-            <circle cx={12} cy={12} r={1} />
-            <circle cx={19} cy={12} r={1} />
-            <circle cx={5} cy={12} r={1} />
+            <path
+              d="M5 21C4.45 21 3.979 20.804 3.587 20.412C3.195 20.02 2.99933 19.5493 3 19V5C3 4.45 3.196 3.979 3.588 3.587C3.98 3.195 4.45067 2.99933 5 3H11C11.2833 3 11.521 3.096 11.713 3.288C11.905 3.48 12.0007 3.71733 12 4C12 4.28333 11.904 4.521 11.712 4.713C11.52 4.905 11.2827 5.00067 11 5H5V19H11C11.2833 19 11.521 19.096 11.713 19.288C11.905 19.48 12.0007 19.7173 12 20C12 20.2833 11.904 20.521 11.712 20.713C11.52 20.905 11.2827 21.0007 11 21H5ZM17.175 13H10C9.71667 13 9.479 12.904 9.287 12.712C9.095 12.52 8.99933 12.2827 9 12C9 11.7167 9.096 11.479 9.288 11.287C9.48 11.095 9.71733 10.9993 10 11H17.175L15.3 9.125C15.1167 8.94167 15.025 8.71667 15.025 8.45C15.025 8.18333 15.1167 7.95 15.3 7.75C15.4833 7.55 15.7167 7.44567 16 7.437C16.2833 7.42833 16.525 7.52433 16.725 7.725L20.3 11.3C20.5 11.5 20.6 11.7333 20.6 12C20.6 12.2667 20.5 12.5 20.3 12.7L16.725 16.275C16.525 16.475 16.2873 16.571 16.012 16.563C15.7367 16.555 15.4993 16.4507 15.3 16.25C15.1167 16.05 15.029 15.8123 15.037 15.537C15.045 15.2617 15.141 15.0327 15.325 14.85L17.175 13Z"
+              fill="white"
+            />
           </svg>
         </button>
       </div>
@@ -107,4 +118,4 @@ function navbar() {
   );
 }
 
-export default navbar
+export default navbar;
