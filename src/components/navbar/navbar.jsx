@@ -1,11 +1,26 @@
-import React from "react";
-import axios from "axios";
-import { BASE_URL } from "../../../config";
-import { useNavigate } from "react-router-dom";
+"use client";
 
-function navbar({ user, admin, superadmin }) {
-  const nav = useNavigate();
-  axios.defaults.withCredentials = true;
+import React, { useState } from "react";
+import styles from "@/styles/page.module.css";
+import { BASE_URL } from "@/config";
+import cls from "classnames";
+import { usePathname, useRouter } from "next/navigation";
+
+function navbar({ role }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
+
+  const navItems = [
+    { type: "superadmin", items: ["User", "Admin", "Superadmin", "Profile"] },
+    { type: "admin", items: ["User", "Profile"] },
+    { type: "user", items: ["Profile"] },
+  ];
+
+  const setTab = (item) => {
+    router.push(`/${item}`);
+  };
+
   const handleLogout = async () => {
     try {
       const res = await fetch(`${BASE_URL}/logout`, {
@@ -13,18 +28,18 @@ function navbar({ user, admin, superadmin }) {
         credentials: "include",
       });
       const data = await res.json();
-      console.log(data);
       if (data.Status) {
-        window.location.reload();
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="app-icon">
+    <div className={styles.sidebar}>
+      <div className={styles["sidebar-header"]}>
+        <div className={styles["app-icon"]}>
           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="currentColor"
@@ -33,10 +48,17 @@ function navbar({ user, admin, superadmin }) {
           </svg>
         </div>
       </div>
-      <ul className="sidebar-list">
-        {superadmin && (
-          <li className="sidebar-list-item active">
-            <a href="#">
+      <ul className={styles["sidebar-list"]}>
+        {navItems
+          .find((item) => item.type === role)
+          ?.items.map((item) => (
+            <li
+              className={cls(styles["sidebar-list-item"], {
+                [styles.active]: pathname.slice(1) == item,
+              })}
+              key={item}
+              onClick={() => setTab(item)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={18}
@@ -47,46 +69,23 @@ function navbar({ user, admin, superadmin }) {
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="feather feather-home"
+                className={cls(styles.feather, styles["feather-home"])}
               >
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
-              <span>Dashboard</span>
-            </a>
-          </li>
-        )}
-        {admin && (
-          <li className="sidebar-list-item">
-            <a href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={18}
-                height={18}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="feather feather-pie-chart"
-              >
-                <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-                <path d="M22 12A10 10 0 0 0 12 2v10z" />
-              </svg>
-              <span>Users</span>
-            </a>
-          </li>
-        )}
+              <span>{item}</span>
+            </li>
+          ))}
       </ul>
-      <div className="account-info">
-        <div className="account-info-picture">
+      <div className={styles["account-info"]}>
+        <div className={styles["account-info-picture"]}>
           <img
             src="https://images.unsplash.com/photo-1527736947477-2790e28f3443?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE2fHx3b21hbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
             alt="Account"
           />
         </div>
-        <div className="account-info-name">Monica G.</div>
+        <div className={styles["account-info-name"]}>Monica G.</div>
         <button
           style={{
             backgroundColor: "transparent",

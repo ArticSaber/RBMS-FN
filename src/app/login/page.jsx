@@ -1,16 +1,12 @@
+"use client";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import timeManagementImage from "../../assets/images/login-image.png";
-import userImage from "../../assets/images/user.svg";
-import lockImage from "../../assets/images/lock.svg";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../../../config";
-import { toast } from "react-toastify";
+import { BASE_URL } from "@/config";
+import styles from "./login.module.css";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-import "./login.css";
 const Login = () => {
-  const nav = useNavigate();
+  const router = useRouter();
   const [formData, setformData] = useState({
     email: "",
     password: "",
@@ -20,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       //
-      const response = await fetch(`${BASE_URL}/login`, {
+      const response = await fetch(`${BASE_URL}api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,13 +34,13 @@ const Login = () => {
 
       if (res.Status) {
         if (res.role === "user") {
-          nav("/userdashboard");
+          router("/userdashboard");
         }
         if (res.role === "admin") {
-          nav("/admindashboard");
+          router("/admindashboard");
         }
         if (res.role === "superadmin") {
-          nav("/superadmindashboard");
+          router("/superadmindashboard");
         }
       } else {
         toast.error("Invalid Credentials");
@@ -65,26 +61,30 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <div className="login-container">
-        <div className="time-magangemet">
-          <img alt="i" src={timeManagementImage} className="time-magangemet-image"></img>
+      <div className={styles["login-container"]}>
+        <div className={styles["time-magangemet"]}>
+          <img
+            alt="i"
+            src="/images/login-image.png"
+            className={styles["time-magangemet-image"]}
+          ></img>
         </div>
-        <form className="login-wrapper" onSubmit={handleLogin}>
-          <div className="login-rect">
+        <form className={styles["login-wrapper"]} onSubmit={handleLogin}>
+          <div className={styles["login-rect"]}>
             <p>Login</p>
           </div>
-          <div className="email-container">
-            <label htmlFor="user" className="user">
+          <div className={styles["email-container"]}>
+            <label htmlFor="user" className={styles["user"]}>
               Email ID
             </label>
-            <div className="input-container">
-              <img src={userImage} alt="user" className="image" />
+            <div className={styles["input-container"]}>
+              <img src="/images/user.svg" alt="user" className={styles.image} />
               <input
                 autoComplete="off"
                 type="text"
                 placeholder="Enter the User Id"
                 name="email"
-                className="input-box"
+                className={styles["input-box"]}
                 value={FormData?.email}
                 onChange={
                   handleInputChange
@@ -93,18 +93,18 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className="password-container">
-            <label htmlFor="password" className="password">
+          <div className={styles["password-container"]}>
+            <label htmlFor="password" className={styles["password"]}>
               Password
             </label>
-            <div className="input-container">
-              <img src={lockImage} alt="lock" className="image" />
+            <div className={styles["input-container"]}>
+              <img src="/images/lock.svg" alt="lock" className={styles["image"]} />
               <input
                 autoComplete="off"
                 type="password"
                 placeholder="Enter the Password"
                 name="password"
-                className="input-box"
+                className={styles["input-box"]}
                 value={FormData?.password}
                 onChange={
                   handleInputChange
@@ -113,12 +113,12 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className="forgot-container">
-            <button type="submit" className="login-btn">
+          <div className={styles["forgot-container"]}>
+            <button type="submit" className={styles["login-btn"]}>
               Login
             </button>
 
-            <Link to="/forgotPassword" className="forgot-password">
+            <Link href="/forgotPassword" className={styles["forgot-password"]}>
               Forgot Password?
             </Link>
           </div>

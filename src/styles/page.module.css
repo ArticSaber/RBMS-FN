@@ -1,53 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
-* {
-  box-sizing: border-box;
-}
-
-:root {
-  --app-bg: #101827;
-  --sidebar: rgba(21, 30, 47, 1);
-  --sidebar-main-color: #fff;
-  --table-border: #1a2131;
-  --table-header: #1a2131;
-  --app-content-main-color: #fff;
-  --sidebar-link: #fff;
-  --sidebar-active-link: #1d283c;
-  --sidebar-hover-link: #1a2539;
-  --action-color: #2869ff;
-  --action-color-hover: #6291fd;
-  --app-content-secondary-color: #1d283c;
-  --filter-reset: #2c394f;
-  --filter-shadow: rgba(16, 24, 39, 0.8) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-}
-
-.light:root {
-  --app-bg: #fff;
-  --sidebar: #f3f6fd;
-  --app-content-secondary-color: #f3f6fd;
-  --app-content-main-color: #1f1c2e;
-  --sidebar-link: #1f1c2e;
-  --sidebar-hover-link: rgba(195, 207, 244, 0.5);
-  --sidebar-active-link: rgba(195, 207, 244, 1);
-  --sidebar-main-color: #1f1c2e;
-  --filter-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100%;
-}
-
-body {
-  overflow: hidden;
-  font-family: "Poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .app-container {
   border-radius: 4px;
   width: 100%;
@@ -83,7 +33,8 @@ body {
   position: relative;
   margin-bottom: 4px;
 }
-.sidebar-list-item a {
+.sidebar-list-item {
+  cursor: pointer;
   display: flex;
   align-items: center;
   width: 100%;
@@ -680,7 +631,6 @@ body {
   z-index: 1000;
 }
 
-
 .modal-content {
   background-color: #fff;
   color: black;
@@ -693,30 +643,25 @@ body {
   overflow-y: auto;
 }
 
-
 .modal-content .modal-title {
   font-size: 1.5rem;
   margin-bottom: 15px;
 }
-
 
 .modal-content form {
   display: flex;
   flex-direction: column;
 }
 
-
 .modal-content .form-item {
   margin-bottom: 15px;
 }
-
 
 .modal-content label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
-
 
 .modal-content input[type="email"],
 .modal-content select {
@@ -726,12 +671,10 @@ body {
   border-radius: 4px;
 }
 
-
 .modal-content .nav-button-container {
   display: flex;
   justify-content: space-between;
 }
-
 
 .modal-content button {
   padding: 8px 16px;
@@ -744,7 +687,8 @@ body {
   color: #fff;
 }
 
-.form-item select, .form-item input[type="email"] {
+.form-item select,
+.form-item input[type="email"] {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
