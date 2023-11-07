@@ -1,4 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
+import jwt from "jsonwebtoken";
+
 import { cookies } from "next/headers";
 
 const jwtGenrator = async ({ payload }) => {
@@ -22,4 +24,14 @@ const jwtVerifier = async (token) => {
   }
 };
 
-export { jwtGenrator, jwtVerifier };
+const jwtDecode = async (token) => {
+  try {
+    return jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+  }
+  catch (error) {
+    console.log(error);
+
+  }
+}
+
+export { jwtGenrator, jwtVerifier, jwtDecode };

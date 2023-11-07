@@ -18,6 +18,8 @@
   background-color: var(--sidebar);
   display: flex;
   flex-direction: column;
+  height: 100%;
+  /* padding-top: 3rem; */
 }
 .sidebar-header {
   display: flex;
@@ -26,8 +28,15 @@
   padding: 16px;
 }
 .sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* top | right | bottom | left */
+  padding: 6rem 0 2rem 0;
   list-style-type: none;
-  padding: 0;
+  /* padding: 0; */
+  margin: 0;
+  flex: 1;
 }
 .sidebar-list-item {
   position: relative;
@@ -688,11 +697,18 @@
 }
 
 .form-item select,
-.form-item input[type="email"] {
+.form-item input[type="email"],
+.form-item input[type="password"] {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
   background-color: #f5f5f5;
   font-size: 16px;
+}
+
+.form-item{
+    display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }

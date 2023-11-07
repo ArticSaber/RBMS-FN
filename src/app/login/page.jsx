@@ -28,24 +28,23 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Login failed");
       }
+      // const res = await response.json();
+      // console.log(res);
 
-      const res = await response.json();
-      console.log(res);
-
-      if (res.Status) {
-        if (res.role === "user") {
-          router("/userdashboard");
-        }
-        if (res.role === "admin") {
-          router("/admindashboard");
-        }
-        if (res.role === "superadmin") {
-          router("/superadmindashboard");
-        }
-      } else {
-        toast.error("Invalid Credentials");
-      }
-      // window.location.reload();
+      // if (res.Status) {
+      //   if (res.role === "user") {
+      //     router("/userdashboard");
+      //   }
+      //   if (res.role === "admin") {
+      //     router("/admindashboard");
+      //   }
+      //   if (res.role === "superadmin") {
+      //     router("/superadmindashboard");
+      //   }
+      // } else {
+      //   toast.error("Invalid Credentials");
+      // }
+      window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
@@ -98,7 +97,11 @@ const Login = () => {
               Password
             </label>
             <div className={styles["input-container"]}>
-              <img src="/images/lock.svg" alt="lock" className={styles["image"]} />
+              <img
+                src="/images/lock.svg"
+                alt="lock"
+                className={styles["image"]}
+              />
               <input
                 autoComplete="off"
                 type="password"

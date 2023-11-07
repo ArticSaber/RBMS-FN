@@ -72,8 +72,12 @@ const Table = ({ data }) => {
     <div className={cls(styles["products-area-wrapper"], styles.tableView)}>
       <div className={styles["products-header"]}>
         <div className={cls(styles["product-cell"], styles.image)}>Name</div>
-        <div className={cls(styles["product-cell"], styles["status-cell"])}>Status</div>
-        <div className={cls(styles["product-cell"], styles.sales)}>Create Date</div>
+        <div className={cls(styles["product-cell"], styles["status-cell"])}>
+          Status
+        </div>
+        <div className={cls(styles["product-cell"], styles.sales)}>
+          Create Date
+        </div>
         <div className={cls(styles["product-cell"], styles.stock)}>Type</div>
         <div className={cls(styles["product-cell"], styles.price)}>Role</div>
         <div className={cls(styles["product-cell"], styles.price)}>View</div>
@@ -81,7 +85,9 @@ const Table = ({ data }) => {
       </div>
       {data.map((item) => {
         const date = new Date(item.createdAt);
-        const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        const formattedDate = `${date.getDate()}-${
+          date.getMonth() + 1
+        }-${date.getFullYear()}`;
         return (
           <div key={item._id} className={cls(styles["products-row"])}>
             <div className={cls(styles["product-cell"], styles.flex)}>
@@ -96,9 +102,13 @@ const Table = ({ data }) => {
             <div className={cls(styles["product-cell"], styles["status-cell"])}>
               <span className={styles["cell-label"]}>Status:</span>
               {item.active ? (
-                <span className={cls(styles.status, styles.active)}>Active</span>
+                <span className={cls(styles.status, styles.active)}>
+                  Active
+                </span>
               ) : (
-                <span className={cls(styles.status, styles.disabled)}>Disabled</span>
+                <span className={cls(styles.status, styles.disabled)}>
+                  Disabled
+                </span>
               )}
             </div>
             <div className={cls(styles["product-cell"], styles.category)}>
@@ -115,7 +125,10 @@ const Table = ({ data }) => {
             </div>
 
             <div className={cls(styles["product-cell"], styles.price)}>
-              <button className={styles["edit-button"]} onClick={() => handleEdit(item)}>
+              <button
+                className={styles["edit-button"]}
+                onClick={() => handleEdit(item)}
+              >
                 View User
               </button>
             </div>
@@ -130,6 +143,7 @@ const Table = ({ data }) => {
                 >
                   <div className={styles["modal-title"]}>Edit User</div>
                   <div className={styles["form-item"]}>
+                    <label>Email Id:</label>
                     <input
                       type="email"
                       name="email"
@@ -149,10 +163,16 @@ const Table = ({ data }) => {
                   </div>
                   <div className={styles["form-item"]}>
                     <label>Role:</label>
-                    <select name="role" value={currentUser.role} onChange={handleInputChange}>
+                    <select
+                      name="role"
+                      value={currentUser.role}
+                      onChange={handleInputChange}
+                    >
                       <option value="user">user</option>
                       <option value="admin">admin</option>
-                      {role == "superadmin" && <option value="superadmin">superadmin</option>}
+                      {role == "superadmin" && (
+                        <option value="superadmin">superadmin</option>
+                      )}
                     </select>
                   </div>
                   <div className={styles["nav-button-container"]}>
@@ -173,7 +193,10 @@ const Table = ({ data }) => {
             )}
 
             <div className={cls(styles["product-cell"], styles.price)}>
-              <button className={styles["delete-button"]} onClick={() => handleDelete(item._id)}>
+              <button
+                className={styles["delete-button"]}
+                onClick={() => handleDelete(item._id)}
+              >
                 Delete User
               </button>
             </div>

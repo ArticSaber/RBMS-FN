@@ -12,24 +12,32 @@ function navbar({ role }) {
   console.log(pathname);
 
   const navItems = [
-    { type: "superadmin", items: ["User", "Admin", "Superadmin", "Profile"] },
-    { type: "admin", items: ["User", "Profile"] },
-    { type: "user", items: ["Profile"] },
+    {
+      type: "superadmin",
+      items: ["Dashboard", "User", "Admin", "Superadmin", "Profile"],
+    },
+    { type: "admin", items: ["Dashboard", "User", "Profile"] },
+    { type: "user", items: ["Dashboard", "Profile"] },
   ];
 
   const setTab = (item) => {
-    router.push(`/${item}`);
+    if (item == "Dashboard") {
+      router.push("/");
+    } else {
+      router.push(`/${item}`);
+    }
   };
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/logout`, {
+      const res = await fetch(`${BASE_URL}api/logout`, {
         method: "GET",
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
       if (data.Status) {
-        router.refresh();
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);
