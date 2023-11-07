@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       //
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,11 +67,7 @@ const Login = () => {
     <React.Fragment>
       <div className="login-container">
         <div className="time-magangemet">
-          <img
-            alt="i"
-            src={timeManagementImage}
-            className="time-magangemet-image"
-          ></img>
+          <img alt="i" src={timeManagementImage} className="time-magangemet-image"></img>
         </div>
         <form className="login-wrapper" onSubmit={handleLogin}>
           <div className="login-rect">
