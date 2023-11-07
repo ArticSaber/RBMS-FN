@@ -11,21 +11,21 @@ import { toast } from "react-toastify";
 import "./login.css";
 const Login = () => {
   const nav = useNavigate();
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
+  const [formData, setformData] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(BASE_URL + "/login", {
+      //
+      const response = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+        body: JSON.stringify(formData),
         credentials: "include",
       });
 
@@ -49,11 +49,18 @@ const Login = () => {
       } else {
         toast.error("Invalid Credentials");
       }
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
-    console.log(formData);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setformData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -82,9 +89,9 @@ const Login = () => {
                 placeholder="Enter the User Id"
                 name="email"
                 className="input-box"
-                value={email}
+                value={FormData?.email}
                 onChange={
-                  (e) => setemail(e.target.value)
+                  handleInputChange
                   // dispatch(change({ name: "email", value: e.target.value }))
                 }
               />
@@ -102,9 +109,9 @@ const Login = () => {
                 placeholder="Enter the Password"
                 name="password"
                 className="input-box"
-                value={password}
+                value={FormData?.password}
                 onChange={
-                  (e) => setpassword(e.target.value)
+                  handleInputChange
                   // dispatch(change({ name: "password", value: e.target.value }))
                 }
               />
