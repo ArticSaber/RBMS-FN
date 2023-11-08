@@ -16,17 +16,6 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    const cookie = req.cookies.get("token");
-    const decoded = jwtDecode(cookie);
-    if (!cookie || !decoded) {
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
-    }
-    req.user = decoded;
-    const checkUser = await authSchema.findOne({ _id: req.user.payload.id });
-    if (!checkUser) throw new badRequest("User not found");
-    if (checkUser.role !== req.user.payload.role && checkUser.role !== Role) {
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
-    }
     await authSchema.create(data);
     return NextResponse.json(
       { message: "User Added Succesfully" },

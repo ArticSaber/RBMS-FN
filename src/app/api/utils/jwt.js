@@ -1,8 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import jwt from "jsonwebtoken";
 
-import { cookies } from "next/headers";
-
 const jwtGenrator = async ({ payload }) => {
   const alg = "HS256";
   return await new SignJWT({ payload })
@@ -20,7 +18,7 @@ const jwtVerifier = async (token) => {
     );
   } catch (error) {
     console.log(error);
-    cookies().delete("token");
+    // cookies().delete("token");
   }
 };
 

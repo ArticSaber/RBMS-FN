@@ -1,17 +1,27 @@
+"use client";
+
 import Table from "@/components/table";
 import { BASE_URL } from "@/config";
+import { useEffect, useState } from "react";
 
-const Admin = async () => {
-  const data = await fetch(BASE_URL + "api/list", {
-    method: "POST",
-    body: JSON.stringify({ role: "admin" }),
-    credentials: "include",
-    cache: "no-store",
-  })
-    .then((response) => response.json())
-    .catch((error) => console.error("Error:", error));
+const User = () => {
+  const [data, setData] = useState([]);
+  const test = async () => {
+    const data = await fetch(BASE_URL + "api/list", {
+      cache: "no-store",
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ role: "admin" }),
+    })
+      .then((response) => response.json())
+      .then((response) => setData(response))
+      .catch((error) => console.error(error));
+  };
+  useEffect(() => {
+    test();
+  }, []);
 
-  return <Table data={data} />;
+  return <Table data={data} type="admin" />;
 };
 
-export default Admin;
+export default User;

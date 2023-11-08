@@ -75,29 +75,7 @@ const Wrapper = ({ children }) => {
         <main className={styles.main}>
           <div className={styles["app-container"]}>
             <Navbar role={role} />
-            <div className={styles["app-content"]}>
-              {role !== "user" && (
-                <div className={styles["app-content-header"]}>
-                  <h1 className={styles["app-content-headerText"]}>Users</h1>
-                  <button
-                    className={styles["app-content-headerButton"]}
-                    onClick={() => setAdd(true)}
-                  >
-                    Add User
-                  </button>
-                </div>
-              )}
-              {role !== "user" && (
-                <div className={styles["app-content-actions"]}>
-                  <input
-                    className={styles["search-bar"]}
-                    placeholder="Search..."
-                    type="text"
-                  />
-                </div>
-              )}
-              {children}
-            </div>
+            <div className={styles["app-content"]}>{children}</div>
           </div>
           {add && (
             <div className={styles.modal}>
