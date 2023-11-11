@@ -154,8 +154,10 @@
 .app-content-header {
   display: flex;
   align-items: center;
+  gap: 3rem;
   justify-content: space-between;
-  padding: 0 4px;
+  padding: 0 5px;
+  margin-top: 1rem;
 }
 .app-content-headerText {
   color: var(--app-content-main-color);
@@ -361,6 +363,7 @@
   max-height: 100%;
   overflow: auto;
   padding: 0 4px;
+  margin-top: 3rem;
 }
 
 .tableView .products-header {
@@ -384,6 +387,7 @@
 .tableView .products-row .cell-more-button {
   display: none;
 }
+
 .tableView .product-cell {
   flex: 1;
   padding: 8px 16px;

@@ -86,22 +86,25 @@ function navbar({ role }) {
             </li>
           ))}
       </ul>
-      <div className={styles["account-info"]}>
-        <div className={styles["account-info-picture"]}>
-          <img
-            src="https://images.unsplash.com/photo-1527736947477-2790e28f3443?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE2fHx3b21hbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-            alt="Account"
-          />
-        </div>
-        <div className={styles["account-info-name"]}>Monica G.</div>
+      <div
+        className={styles["account-info"]}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        >
         <button
           style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
             backgroundColor: "transparent",
             border: "none",
             cursor: "pointer",
           }}
           onClick={handleLogout}
         >
+          <div className={styles["account-info-name"]}>Logout</div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

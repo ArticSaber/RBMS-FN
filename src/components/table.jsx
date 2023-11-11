@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 const Table = ({ data, type }) => {
   const router = useRouter();
+  const [role, setRole] = useState("");
   const fetchRole = async () => {
     setRole(await Role());
   };
@@ -30,7 +31,6 @@ const Table = ({ data, type }) => {
   };
 
   const [edit, setEdit] = useState(false);
-  const [role, setRole] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const handleEdit = (data) => {
     setCurrentUser(data);
@@ -48,6 +48,63 @@ const Table = ({ data, type }) => {
     setCurrentUser({
       ...currentUser,
       active: e.target.value === "Active" ? true : false,
+    });
+  };
+
+  const [add, setAdd] = useState(false);
+  const [addUser, setAddUser] = useState({
+    email: "",
+    password: "",
+    role: "",
+    active: true,
+  });
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    // console.log(addUser);
+    try {
+      const response = await fetch(`${BASE_URL}api/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(addUser),
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            setAdd(false);
+            setAddUser({
+              email: "",
+              password: "",
+              role: "",
+              active: true,
+            });
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddChange = (e) => {
+    setAddUser({
+      ...addUser,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAddActiveChange = (e) => {
+    setAddUser({
+      ...addUser,
+      active: e.target.value === "Active" ? true : false,
+    });
+  };
+  const handleAddRoleChange = (event) => {
+    setAddUser({
+      ...addUser,
+      role: event.target.value,
     });
   };
 
@@ -204,6 +261,69 @@ const Table = ({ data, type }) => {
                       </button>
                       <button className={styles["update-btn"]} type="submit">
                         Update
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+              {add && (
+                <div className={styles.modal}>
+                  <form
+                    className={styles["modal-content"]}
+                    onSubmit={handleAdd}
+                  >
+                    <div className={styles["modal-title"]}>Add User</div>
+                    <div className={styles["form-item"]}>
+                      <label>Email Id:</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={addUser.email}
+                        onChange={handleAddChange}
+                      />
+                      <label>Password:</label>
+                      <input
+                        type="password"
+                        name="password"
+                        value={addUser.password}
+                        onChange={handleAddChange}
+                      />
+                    </div>
+                    <div className={styles["form-item"]}>
+                      <label>Status:</label>
+                      <select
+                        value={addUser.active ? "Active" : "Inactive"}
+                        onChange={handleAddActiveChange}
+                      >
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </select>
+                    </div>
+                    <div className={styles["form-item"]}>
+                      <label>Role:</label>
+                      <select
+                        name="role"
+                        value={addUser.role}
+                        onChange={handleAddRoleChange}
+                      >
+                        <option value="user">user</option>
+                        <option value="admin">admin</option>
+                        {role == "superadmin" && (
+                          <option value="superadmin">superadmin</option>
+                        )}
+                      </select>
+                    </div>
+                    <div className={styles["nav-button-container"]}>
+                      <button
+                        className={styles["cancel-btn"]}
+                        onClick={() => {
+                          setAdd(false);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button className={styles["update-btn"]} type="submit">
+                        Add
                       </button>
                     </div>
                   </form>

@@ -73,12 +73,13 @@ const Login = () => {
             <p>Login</p>
           </div>
           <div className={styles["email-container"]}>
-            <label htmlFor="user" className={styles["user"]}>
+            <label htmlFor="email" className={styles["user"]}>
               Email ID
             </label>
             <div className={styles["input-container"]}>
               <img src="/images/user.svg" alt="user" className={styles.image} />
               <input
+                id="email"
                 autoComplete="off"
                 type="text"
                 placeholder="Enter the User Id"
@@ -103,6 +104,7 @@ const Login = () => {
                 className={styles["image"]}
               />
               <input
+                id="password"
                 autoComplete="off"
                 type="password"
                 placeholder="Enter the Password"
