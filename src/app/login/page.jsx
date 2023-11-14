@@ -28,23 +28,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Login failed");
       }
-      // const res = await response.json();
-      // console.log(res);
-
-      // if (res.Status) {
-      //   if (res.role === "user") {
-      //     router("/userdashboard");
-      //   }
-      //   if (res.role === "admin") {
-      //     router("/admindashboard");
-      //   }
-      //   if (res.role === "superadmin") {
-      //     router("/superadmindashboard");
-      //   }
-      // } else {
-      //   toast.error("Invalid Credentials");
-      // }
-      window.location.reload();
+      router.push("/dashboard");
     } catch (error) {
       console.log(error.message);
     }

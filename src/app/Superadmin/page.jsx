@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const User = () => {
   const [data, setData] = useState([]);
   const test = async () => {
-    const data = await fetch(BASE_URL + "api/list", {
+    await fetch(BASE_URL + "api/list", {
       cache: "no-store",
       credentials: "include",
       method: "POST",

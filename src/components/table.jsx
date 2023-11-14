@@ -61,9 +61,8 @@ const Table = ({ data, type }) => {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    // console.log(addUser);
     try {
-      const response = await fetch(`${BASE_URL}api/add`, {
+      await fetch(`${BASE_URL}api/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

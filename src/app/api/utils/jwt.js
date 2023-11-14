@@ -18,7 +18,6 @@ const jwtVerifier = async (token) => {
     );
   } catch (error) {
     console.log(error);
-    // cookies().delete("token");
   }
 };
 

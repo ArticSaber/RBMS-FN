@@ -1,214 +1,141 @@
 .login-container {
-   padding: 20px;
-   display: flex;
-   align-items: center;
-   height: 90vh;
-   justify-content: space-evenly;
-   
-  
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  justify-content: space-evenly;
 }
-.time-magangemet-image{
-   max-height:500px;
-   max-width: 500px;
+.time-magangemet-image {
+  max-height: 500px;
+  max-width: 500px;
 }
 
-.login-wrapper{
-   background-color: white;
-   border-radius: 20px;
-   width: 40vw;  
+.login-wrapper {
+  background-color: white;
+  border-radius: 20px;
+  width: 40vw;
 }
-.login-rect{
-   display: flex;
-   margin-top: 100px;
-   background-color: rgba(74, 133, 246, 0.22);
-   width: 100%;
-   height: 80px;
-   align-items: center;
+.login-rect {
+  display: flex;
+  margin-top: 100px;
+  background-color: rgba(74, 133, 246, 0.22);
+  width: 100%;
+  height: 80px;
+  align-items: center;
 }
-.login-rect p{
-   margin-left: 20px;
-   font-size: 36px;
-   font-weight: bolder;
+.login-rect p {
+  margin-left: 20px;
+  font-size: 36px;
+  font-weight: bolder;
 }
-.email-container,.password-container{
-   display: flex;
-   flex-direction: column;
-   padding:10px 40px;
+.email-container,
+.password-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px;
 }
-.user, .password{
-   color: #7C838A;
-   font-family: Poppins;
-   font-size: 15px;
-   font-style: normal;
-   font-weight: 500;
-   line-height: normal;
-   margin-bottom: 10px;
+.user,
+.password {
+  color: #7c838a;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 10px;
 }
-.input-box{
-   border-radius: 10px;
-   border: none;
-   background: rgba(176, 186, 195, 0.0);
-   width: 100%;
-   margin-left: 10px;
+.input-box {
+  border-radius: 10px;
+  border: none;
+  background: rgba(176, 186, 195, 0);
+  width: 100%;
+  margin-left: 10px;
 }
-.image{
-   height: 30px;
-   width: 20px;
+.image {
+  height: 30px;
+  width: 20px;
 }
-.input-container{
-   display: flex;
-   border-radius: 20px;
-   background: rgba(176, 186, 195, 0.40);
-   padding: 10px;
+.input-container {
+  display: flex;
+  border-radius: 20px;
+  background: rgba(176, 186, 195, 0.4);
+  padding: 10px;
 }
-.forgot-password{
-width: auto;
-height: auto;
-float: right;
-/* margin-right:50px ; */
+.forgot-password {
+  width: auto;
+  height: auto;
+  float: right;
+  /* margin-right:50px ; */
 
-   color: #7C838A;
-   font-family: Poppins;
-   font-size: 20px;
-   font-style: normal;
-   font-weight: 500;
-   line-height: normal;
-   text-decoration: none;
-   justify-content: end;
+  color: #7c838a;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  justify-content: end;
 }
-.login-btn{
-   background-color: rgba(74, 133, 246, 1);
-   /* margin-left: 50px; */
-   width: 112px;
-   height: 40px;
-   border: none;
-   color: white;
-   cursor: pointer;
-   border-radius: 2px;
-   /* margin-bottom:10px ; */
-
+.login-btn {
+  background-color: rgba(74, 133, 246, 1);
+  /* margin-left: 50px; */
+  width: 112px;
+  height: 40px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 2px;
+  /* margin-bottom:10px ; */
 }
-.forgot-container{
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 1rem;
-
+.forgot-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
 }
-@media only screen and (max-width: 900px){
-   .login-container{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-   }
-   .time-magangemet-image{
-      height: 300px;
-      width: 300px;
-   }
-   .forgot-password{
-      font-size: 15px;
-   }
-}
-   @media only screen and (max-width: 415px){
-      .login-container{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-         background-color: rgba(74, 133, 246, 1);
-         height: 100vh;
-         width: auto;
-      }
-      .login-wrapper{
-         background-color: white;
-         border-radius: 20px;
-         width: 100%;  
-      }
-    
-      .forgot-password{
-         font-size: 15px;
-         margin-right: 0px;
-      }
-      .login-btn{
-         margin-left: 0px;
-      }
-      .time-magangemet-image{
-         display: none;
-      }
-      .forgot-container{
-         display: flex;
-         align-items: center;
-         flex-direction: column;
-      }
-   }
-
-
-/* .login {
-    background-color: white;
-    height: 100vh;
+@media only screen and (max-width: 900px) {
+  .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-self:center;
   }
-  .login-logo {
-    margin-top: 7rem;
-    margin-bottom: 20px;
-    object-fit: contain;
-    width: 100px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  
-  .login-container {
+  .time-magangemet-image {
+    height: 300px;
     width: 300px;
-    height: fit-content;
+  }
+  .forgot-password {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 415px) {
+  .login-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    padding: 20px;
+    background-color: rgba(74, 133, 246, 1);
+    height: 100vh;
+    width: auto;
   }
-  
-  .login-container > h1 {
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-  
-  .login-container > form > h5 {
-    margin-bottom: 5px;
-  }
-  
-  .login-container > form > input {
-    height: 30px;
-    margin-bottom: 10px;
+  .login-wrapper {
     background-color: white;
-    width: 98%;
-  }
-  
-  .login-container > p {
-    margin-top: 15px;
-    font-size: 12px;
-  }
-  
-  .login-button {
-    background-color: #f0c14b;
-    border-radius: 2px;
+    border-radius: 20px;
     width: 100%;
-    height: 30px;
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    cursor: pointer;
   }
-  
-  .register-button {
-    background-color: white;
-    border-radius: 2px;
-    width: 100%;
-    height: 30px;
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    cursor: pointer;
-  } */
+
+  .forgot-password {
+    font-size: 15px;
+    margin-right: 0px;
+  }
+  .login-btn {
+    margin-left: 0px;
+  }
+  .time-magangemet-image {
+    display: none;
+  }
+  .forgot-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}

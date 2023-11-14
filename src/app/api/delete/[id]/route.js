@@ -6,8 +6,11 @@ dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 export async function DELETE(req, { params }) {
   try {
     const id = params.id;
-    await authSchema.findByIdAndDelete(id);
-    return NextResponse.json({ message: "Deleted Succesfully" }, { status: 200 });
+    await Promise.resolve(authSchema.findByIdAndDelete(id));
+    return NextResponse.json(
+      { message: "Deleted Succesfully" },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

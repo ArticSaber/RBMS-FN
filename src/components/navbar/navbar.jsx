@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "@/styles/page.module.css";
 import { BASE_URL } from "@/config";
 import cls from "classnames";

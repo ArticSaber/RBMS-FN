@@ -7,7 +7,6 @@
   display: flex;
   overflow: hidden;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  max-width: 2000px;
   margin: 0 auto;
 }
 
@@ -38,10 +37,7 @@
   margin: 0;
   flex: 1;
 }
-.sidebar-list-item {
-  position: relative;
-  margin-bottom: 4px;
-}
+
 .sidebar-list-item {
   cursor: pointer;
   display: flex;

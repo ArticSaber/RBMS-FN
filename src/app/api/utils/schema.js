@@ -9,7 +9,7 @@ const User = new mongoose.Schema(
       unique: true,
       lowercase: true,
       validator: {
-        validate: (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value),
+        validate: (value) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value),
         message: "Email is not valid",
       },
     },

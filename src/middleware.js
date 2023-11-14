@@ -51,7 +51,6 @@ export async function middleware(req) {
     }
   }
 
-  // login page token verification
 
   return res;
 }
