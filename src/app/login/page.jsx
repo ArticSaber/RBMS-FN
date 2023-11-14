@@ -28,7 +28,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Login failed");
       }
-      router.push("/dashboard");
+      router.push("/");
     } catch (error) {
       console.log(error.message);
     }
