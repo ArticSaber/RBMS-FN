@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { BASE_URL } from "@/config";
 import styles from "./login.module.css";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { toast } from "sonner";
 
+// This is the page for the Login
 const Login = () => {
   const router = useRouter();
   const [formData, setformData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
     password: "",
   });
 
+  //this is the function for login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -24,16 +26,19 @@ const Login = () => {
         body: JSON.stringify(formData),
         credentials: "include",
       });
-
       if (!response.ok) {
+        toast.error("Login failed");
         throw new Error("Login failed");
       }
       router.push("/Dashboard");
+      toast.success("Login Success");
     } catch (error) {
+      toast.error("Login failed");
       console.log(error.message);
     }
   };
 
+  //this is the function for input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setformData((prevData) => ({

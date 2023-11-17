@@ -1,6 +1,8 @@
+// Importing necessary modules
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// Define the User schema
 const User = new mongoose.Schema(
   {
     email: {
@@ -41,15 +43,18 @@ const User = new mongoose.Schema(
       default: true,
     },
   },
-
   { timestamps: true }
 );
 
+// Hash the password before saving the user
 User.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 10);
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
   next();
 });
 
+// Create the model from the schema
 const authSchema = mongoose.models.authUser || mongoose.model("authUser", User);
 
 export { authSchema };

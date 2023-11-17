@@ -2,17 +2,10 @@
 import styles from "@/styles/page.module.css";
 import Navbar from "@/components/navbar/navbar";
 import { usePathname } from "next/navigation";
-import Role from "@/components/role";
-import { useEffect, useState } from "react";
 
+// This is the wrapper for the app
 const Wrapper = ({ children }) => {
-  const [role, setRole] = useState("");
-
   const pathname = usePathname();
-
-  
-  
-
   return (
     <>
       {pathname.includes("login") ? (

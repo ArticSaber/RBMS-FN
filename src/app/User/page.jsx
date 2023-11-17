@@ -2,7 +2,8 @@ import Table from "@/components/table";
 import { BASE_URL } from "@/config";
 import { headers } from "next/headers";
 
-const Superadmin = async () => {
+// This is the page for the User
+const User = async () => {
   const data = await fetch(BASE_URL + "api/list", {
     method: "POST",
     body: JSON.stringify({ role: "user" }),
@@ -15,4 +16,4 @@ const Superadmin = async () => {
   return <Table data={data} />;
 };
 
-export default Superadmin;
+export default User;

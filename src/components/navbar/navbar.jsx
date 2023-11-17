@@ -6,12 +6,15 @@ import { BASE_URL } from "@/config";
 import cls from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import Role from "@/components/role";
+import { toast } from "sonner";
 
+// This is the navbar for the app
 function navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [role, setRole] = useState("");
 
+  //this is the function for fetch role
   const fetchRole = async () => {
     setRole(await Role());
   };
@@ -29,10 +32,12 @@ function navbar() {
     { type: "user", items: ["Dashboard"] },
   ];
 
+  //this is the function for set tab
   const setTab = (item) => {
     router.push(`/${item}`);
   };
 
+  //this is the function for logout
   const handleLogout = async () => {
     try {
       const res = await fetch(`${BASE_URL}api/logout`, {
@@ -40,15 +45,15 @@ function navbar() {
         credentials: "include",
       });
       const data = await res.json();
-      console.log(data);
       if (data.Status) {
         window.location.reload();
       }
+      toast.success("Logout Success");
     } catch (error) {
+      toast.error("Logout failed");
       console.error(error);
     }
   };
-  console.log(role);
 
   return (
     <div className={styles.sidebar}>

@@ -6,10 +6,22 @@ import cls from "classnames";
 import { useEffect, useState } from "react";
 import Role from "./role";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
+// This is the main table for the app
 const Table = ({ data, type }) => {
   const router = useRouter();
   const [role, setRole] = useState("");
+  const [edit, setEdit] = useState(false);
+  const [add, setAdd] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [addUser, setAddUser] = useState({
+    email: "",
+    password: "",
+    role: "",
+    active: true,
+  });
+
   const fetchRole = async () => {
     setRole(await Role());
   };
@@ -18,47 +30,27 @@ const Table = ({ data, type }) => {
     fetchRole();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`${BASE_URL}api/delete/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const [edit, setEdit] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
-  const handleEdit = (data) => {
-    setCurrentUser(data);
-    setEdit(!edit);
-  };
-
-  const handleInputChange = (e) => {
-    setCurrentUser({
-      ...currentUser,
+  const handleAddChange = (e) => {
+    setAddUser({
+      ...addUser,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleActiveChange = (e) => {
-    setCurrentUser({
-      ...currentUser,
+  const handleAddActiveChange = (e) => {
+    setAddUser({
+      ...addUser,
       active: e.target.value === "Active" ? true : false,
     });
   };
+  const handleAddRoleChange = (event) => {
+    setAddUser({
+      ...addUser,
+      role: event.target.value,
+    });
+  };
 
-  const [add, setAdd] = useState(false);
-  const [addUser, setAddUser] = useState({
-    email: "",
-    password: "",
-    role: "",
-    active: true,
-  });
-
+  //this is the function for add user
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
@@ -81,33 +73,35 @@ const Table = ({ data, type }) => {
               active: true,
             });
           }
+          window.location.reload();
+          toast.success("Added Success");
         });
-      router.refresh();
     } catch (error) {
+      toast.error("Added Failed");
       console.error(error);
     }
   };
 
-  const handleAddChange = (e) => {
-    setAddUser({
-      ...addUser,
+  const handleEdit = (data) => {
+    setCurrentUser(data);
+    setEdit(!edit);
+  };
+
+  const handleInputChange = (e) => {
+    setCurrentUser({
+      ...currentUser,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleAddActiveChange = (e) => {
-    setAddUser({
-      ...addUser,
+  const handleActiveChange = (e) => {
+    setCurrentUser({
+      ...currentUser,
       active: e.target.value === "Active" ? true : false,
     });
   };
-  const handleAddRoleChange = (event) => {
-    setAddUser({
-      ...addUser,
-      role: event.target.value,
-    });
-  };
 
+  //this is the function for update user
   const handleUpdate = async (e, id) => {
     e.preventDefault();
     try {
@@ -119,17 +113,34 @@ const Table = ({ data, type }) => {
         body: JSON.stringify(currentUser),
         credentials: "include",
       });
-      console.log(response);
+      toast.success("Update Success");
       router.refresh();
     } catch (error) {
+      toast.error("Update Failed");
       console.error(error);
     }
     setEdit(false);
     setCurrentUser(null);
   };
 
+  //this is the function for delete user
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}api/delete/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      toast.success("Delete Success");
+      router.refresh();
+    } catch (error) {
+      toast.error("Delete Failed");
+      console.error(error);
+    }
+  };
+
   return (
     <>
+      {/*This is the header for the table */}
       {type !== "user" && (
         <div className={styles["app-content-header"]}>
           <h1 className={styles["app-content-headerText"]}>Users</h1>
@@ -157,6 +168,8 @@ const Table = ({ data, type }) => {
             Delete
           </div>
         </div>
+
+        {/*This is the body for the table */}
         {data?.map((item) => {
           const date = new Date(item.createdAt);
           const formattedDate = `${date.getDate()}-${
@@ -208,7 +221,8 @@ const Table = ({ data, type }) => {
                   View User
                 </button>
               </div>
-
+              
+              {/* This is the edit modal for the table */}
               {edit && (
                 <div className={styles.modal}>
                   <form
@@ -267,6 +281,8 @@ const Table = ({ data, type }) => {
                   </form>
                 </div>
               )}
+
+              {/* This is the add modal for the table */}
               {add && (
                 <div className={styles.modal}>
                   <form
