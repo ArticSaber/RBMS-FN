@@ -1,8 +1,15 @@
 "use client";
-
 import React from "react";
-function homepage() {
-  return <>hellos</>;
+import { useRouter } from "next/navigation";
+
+function HomePage() {
+  const router = useRouter();
+
+  React.useEffect(() => {
+    router.replace("/Dashboard");
+  }, []);
+
+  return null;
 }
 
-export default homepage;
+export default HomePage;

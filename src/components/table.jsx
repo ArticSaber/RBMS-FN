@@ -24,7 +24,7 @@ const Table = ({ data, type }) => {
         method: "DELETE",
         credentials: "include",
       });
-      console.log(response);
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
@@ -82,6 +82,7 @@ const Table = ({ data, type }) => {
             });
           }
         });
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
@@ -107,7 +108,8 @@ const Table = ({ data, type }) => {
     });
   };
 
-  const handleUpdate = async (id) => {
+  const handleUpdate = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await fetch(`${BASE_URL}api/update/${id}`, {
         method: "PUT",
@@ -122,8 +124,8 @@ const Table = ({ data, type }) => {
     } catch (error) {
       console.error(error);
     }
+    setEdit(false);
     setCurrentUser(null);
-    setIsOpen(false);
   };
 
   return (
@@ -211,8 +213,8 @@ const Table = ({ data, type }) => {
                 <div className={styles.modal}>
                   <form
                     className={styles["modal-content"]}
-                    onSubmit={() => {
-                      handleUpdate(currentUser._id);
+                    onSubmit={(e) => {
+                      handleUpdate(e, currentUser._id);
                     }}
                   >
                     <div className={styles["modal-title"]}>Edit User</div>
@@ -306,9 +308,11 @@ const Table = ({ data, type }) => {
                         onChange={handleAddRoleChange}
                       >
                         <option value="user">user</option>
-                        <option value="admin">admin</option>
                         {role == "superadmin" && (
-                          <option value="superadmin">superadmin</option>
+                          <>
+                            <option value="admin">admin</option>
+                            <option value="superadmin">superadmin</option>
+                          </>
                         )}
                       </select>
                     </div>

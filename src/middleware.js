@@ -12,28 +12,23 @@ export async function middleware(req) {
     req.nextUrl.pathname.includes("/api/login")
   ) {
     try {
-      console.log("if", req.nextUrl.pathname);
       const token = req.cookies.get("token")?.value;
       if (token) {
-        return NextResponse.redirect(new URL("/", req.url));
+        return NextResponse.redirect(new URL("/Dashboard", req.url));
       }
     } catch (error) {
       console.log(error);
     }
   } else {
-    console.log(req.method);
-    console.log("else", req.nextUrl.pathname);
     try {
       //check token
       const token = req.cookies.get("token")?.value;
       if (!token) {
-        console.log("redirect login1");
         return NextResponse.redirect(new URL("/login", req.url));
       }
       const { payload } = await jwtVerifier(token);
       if (!payload) {
         res.cookie("token", null);
-        console.log("redirect login2");
         return NextResponse.redirect(new URL("/login", req.url));
       }
 
@@ -44,13 +39,12 @@ export async function middleware(req) {
         (req.nextUrl.pathname === "/Superadmin" && Role === "user") ||
         (req.nextUrl.pathname === "/Admin" && Role === "user")
       ) {
-        return NextResponse.redirect(new URL("/", req.url));
+        return NextResponse.redirect(new URL("/Dashboard", req.url));
       }
     } catch (error) {
       console.log("test", error);
     }
   }
-
 
   return res;
 }

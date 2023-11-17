@@ -28,7 +28,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Login failed");
       }
-      router.push("/");
+      router.push("/Dashboard");
     } catch (error) {
       console.log(error.message);
     }
@@ -106,10 +106,6 @@ const Login = () => {
             <button type="submit" className={styles["login-btn"]}>
               Login
             </button>
-
-            <Link href="/forgotPassword" className={styles["forgot-password"]}>
-              Forgot Password?
-            </Link>
           </div>
         </form>
       </div>

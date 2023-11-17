@@ -8,17 +8,14 @@ dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 export async function POST(req) {
   try {
     const { email, password } = await req.json();
-    console.log(email, password);
     if (!email || !password) {
       return NextResponse.json({ message: "Email or Password is missing" }, { status: 400 });
     }
-    console.log(email.toLowerCase());
     const User = await authSchema.findOne({ email: email.toLowerCase() });
     if (!User) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
     const isActive = User.active;
-    console.log(User, User.active);
     if (!isActive) {
       return NextResponse.json({ message: "User Not Active" }, { status: 400 });
     }

@@ -8,8 +8,7 @@ function error405() {
         <h2>Method Not Allowed</h2>
         <p>
           The request method is not supported by the server and cannot be
-          handled. The only methods that servers are required to support (and
-          therefore that must not return this code) are GET and HEAD.
+          handled.
         </p>
       </div>
     </div>

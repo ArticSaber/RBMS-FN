@@ -10,15 +10,8 @@ const Wrapper = ({ children }) => {
 
   const pathname = usePathname();
 
-  const fetchRole = async () => {
-    setRole(await Role());
-  };
-
   
-
-  useEffect(() => {
-    fetchRole();
-  }, []);
+  
 
   return (
     <>
@@ -27,7 +20,7 @@ const Wrapper = ({ children }) => {
       ) : (
         <main className={styles.main}>
           <div className={styles["app-container"]}>
-            <Navbar role={role} />
+            <Navbar />
             <div className={styles["app-content"]}>{children}</div>
           </div>
         </main>
