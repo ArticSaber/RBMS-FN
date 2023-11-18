@@ -40,7 +40,7 @@ const Table = ({ data, type }) => {
   const handleAddActiveChange = (e) => {
     setAddUser({
       ...addUser,
-      active: e.target.value === "Active" ? true : false,
+      active: e.target.value === "Active",
     });
   };
   const handleAddRoleChange = (event) => {
@@ -97,7 +97,7 @@ const Table = ({ data, type }) => {
   const handleActiveChange = (e) => {
     setCurrentUser({
       ...currentUser,
-      active: e.target.value === "Active" ? true : false,
+      active: e.target.value === "Active",
     });
   };
 
@@ -105,7 +105,7 @@ const Table = ({ data, type }) => {
   const handleUpdate = async (e, id) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}api/update/${id}`, {
+      await fetch(`${BASE_URL}api/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ const Table = ({ data, type }) => {
   //this is the function for delete user
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${BASE_URL}api/delete/${id}`, {
+      await fetch(`${BASE_URL}api/delete/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -144,10 +144,7 @@ const Table = ({ data, type }) => {
       {type !== "user" && (
         <div className={styles["app-content-header"]}>
           <h1 className={styles["app-content-headerText"]}>Users</h1>
-          <button
-            className={styles["app-content-headerButton"]}
-            onClick={() => setAdd(true)}
-          >
+          <button className={styles["app-content-headerButton"]} onClick={() => setAdd(true)}>
             Add User
           </button>
         </div>
@@ -155,26 +152,18 @@ const Table = ({ data, type }) => {
       <div className={cls(styles["products-area-wrapper"], styles.tableView)}>
         <div className={styles["products-header"]}>
           <div className={cls(styles["product-cell"], styles.image)}>Name</div>
-          <div className={cls(styles["product-cell"], styles["status-cell"])}>
-            Status
-          </div>
-          <div className={cls(styles["product-cell"], styles.sales)}>
-            Create Date
-          </div>
+          <div className={cls(styles["product-cell"], styles["status-cell"])}>Status</div>
+          <div className={cls(styles["product-cell"], styles.sales)}>Create Date</div>
           <div className={cls(styles["product-cell"], styles.stock)}>Type</div>
           <div className={cls(styles["product-cell"], styles.price)}>Role</div>
           <div className={cls(styles["product-cell"], styles.price)}>View</div>
-          <div className={cls(styles["product-cell"], styles.price)}>
-            Delete
-          </div>
+          <div className={cls(styles["product-cell"], styles.price)}>Delete</div>
         </div>
 
         {/*This is the body for the table */}
         {data?.map((item) => {
           const date = new Date(item.createdAt);
-          const formattedDate = `${date.getDate()}-${
-            date.getMonth() + 1
-          }-${date.getFullYear()}`;
+          const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
           return (
             <div key={item._id} className={cls(styles["products-row"])}>
               <div className={cls(styles["product-cell"], styles.flex)}>
@@ -186,18 +175,12 @@ const Table = ({ data, type }) => {
                 <span>{item.email}</span>
               </div>
 
-              <div
-                className={cls(styles["product-cell"], styles["status-cell"])}
-              >
+              <div className={cls(styles["product-cell"], styles["status-cell"])}>
                 <span className={styles["cell-label"]}>Status:</span>
                 {item.active ? (
-                  <span className={cls(styles.status, styles.active)}>
-                    Active
-                  </span>
+                  <span className={cls(styles.status, styles.active)}>Active</span>
                 ) : (
-                  <span className={cls(styles.status, styles.disabled)}>
-                    Disabled
-                  </span>
+                  <span className={cls(styles.status, styles.disabled)}>Disabled</span>
                 )}
               </div>
               <div className={cls(styles["product-cell"], styles.category)}>
@@ -214,14 +197,11 @@ const Table = ({ data, type }) => {
               </div>
 
               <div className={cls(styles["product-cell"], styles.price)}>
-                <button
-                  className={styles["edit-button"]}
-                  onClick={() => handleEdit(item)}
-                >
+                <button className={styles["edit-button"]} onClick={() => handleEdit(item)}>
                   View User
                 </button>
               </div>
-              
+
               {/* This is the edit modal for the table */}
               {edit && (
                 <div className={styles.modal}>
@@ -253,16 +233,10 @@ const Table = ({ data, type }) => {
                     </div>
                     <div className={styles["form-item"]}>
                       <label>Role:</label>
-                      <select
-                        name="role"
-                        value={currentUser.role}
-                        onChange={handleInputChange}
-                      >
+                      <select name="role" value={currentUser.role} onChange={handleInputChange}>
                         <option value="user">user</option>
                         <option value="admin">admin</option>
-                        {role == "superadmin" && (
-                          <option value="superadmin">superadmin</option>
-                        )}
+                        {role == "superadmin" && <option value="superadmin">superadmin</option>}
                       </select>
                     </div>
                     <div className={styles["nav-button-container"]}>
@@ -285,10 +259,7 @@ const Table = ({ data, type }) => {
               {/* This is the add modal for the table */}
               {add && (
                 <div className={styles.modal}>
-                  <form
-                    className={styles["modal-content"]}
-                    onSubmit={handleAdd}
-                  >
+                  <form className={styles["modal-content"]} onSubmit={handleAdd}>
                     <div className={styles["modal-title"]}>Add User</div>
                     <div className={styles["form-item"]}>
                       <label>Email Id:</label>
@@ -318,11 +289,7 @@ const Table = ({ data, type }) => {
                     </div>
                     <div className={styles["form-item"]}>
                       <label>Role:</label>
-                      <select
-                        name="role"
-                        value={addUser.role}
-                        onChange={handleAddRoleChange}
-                      >
+                      <select name="role" value={addUser.role} onChange={handleAddRoleChange}>
                         <option value="user">user</option>
                         {role == "superadmin" && (
                           <>
@@ -350,10 +317,7 @@ const Table = ({ data, type }) => {
               )}
 
               <div className={cls(styles["product-cell"], styles.price)}>
-                <button
-                  className={styles["delete-button"]}
-                  onClick={() => handleDelete(item._id)}
-                >
+                <button className={styles["delete-button"]} onClick={() => handleDelete(item._id)}>
                   Delete User
                 </button>
               </div>

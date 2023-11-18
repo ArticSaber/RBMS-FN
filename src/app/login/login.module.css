@@ -65,7 +65,6 @@
   width: auto;
   height: auto;
   float: right;
-  /* margin-right:50px ; */
 
   color: #7c838a;
   font-family: "Poppins", sans-serif;
@@ -78,14 +77,12 @@
 }
 .login-btn {
   background-color: rgba(74, 133, 246, 1);
-  /* margin-left: 50px; */
   width: 112px;
   height: 40px;
   border: none;
   color: white;
   cursor: pointer;
   border-radius: 2px;
-  /* margin-bottom:10px ; */
 }
 .forgot-container {
   display: flex;
