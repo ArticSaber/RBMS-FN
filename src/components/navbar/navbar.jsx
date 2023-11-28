@@ -48,9 +48,9 @@ function navbar() {
       if (data.Status) {
         window.location.reload();
       }
-      toast.success("Logout Success");
+      toast.success(data.message);
     } catch (error) {
-      toast.error("Logout failed");
+      toast.error(error.message);
       console.error(error);
     }
   };

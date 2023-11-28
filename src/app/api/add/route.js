@@ -11,7 +11,7 @@ export async function POST(req) {
   try {
     // Parse the request body
     const data = await req.json();
-    
+
     // Check if email and password are provided
     if (!data.email || !data.password) {
       return NextResponse.json(
@@ -19,16 +19,32 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    
+
+    if (data.password.length < 8) {
+      return NextResponse.json(
+        { message: "Password must be at least 8 characters long" },
+        { status: 400 }
+      );
+    }
+
     // Check the role of the user making the request
     const Role = await role();
     if (Role !== "superadmin" && Role !== "admin") {
       return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
     }
-    
+
+    // Check if the email already exists in the database
+    const existinguser = await authSchema.findOne({ email: data.email });
+    if (existinguser) {
+      return NextResponse.json(
+        { message: "User with this email already exists" },
+        { status: 400 }
+      );
+    }
+
     // Create a new user in the database
     await authSchema.create(data);
-    
+
     // Return a success message
     return NextResponse.json(
       { message: "User Added Succesfully" },

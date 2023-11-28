@@ -18,7 +18,7 @@ const Table = ({ data, type }) => {
   const [addUser, setAddUser] = useState({
     email: "",
     password: "",
-    role: "",
+    role: "user",
     active: true,
   });
 
@@ -54,30 +54,32 @@ const Table = ({ data, type }) => {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`${BASE_URL}api/add`, {
+      const response = await fetch(`${BASE_URL}api/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(addUser),
         credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.ok) {
-            setAdd(false);
-            setAddUser({
-              email: "",
-              password: "",
-              role: "",
-              active: true,
-            });
-          }
-          window.location.reload();
-          toast.success("Added Success");
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        setAdd(false);
+        setAddUser({
+          email: "",
+          password: "",
+          role: "",
+          active: true,
         });
+        toast.success(data.message);
+        router.refresh();
+      } else if (response.status === 400) {
+        toast.error(data.message);
+      }
     } catch (error) {
-      toast.error("Added Failed");
+      toast.error(error.message);
       console.error(error);
     }
   };
@@ -113,10 +115,10 @@ const Table = ({ data, type }) => {
         body: JSON.stringify(currentUser),
         credentials: "include",
       });
-      toast.success("Update Success");
+      toast.success(data.message);
       router.refresh();
     } catch (error) {
-      toast.error("Update Failed");
+      toast.error(error.message);
       console.error(error);
     }
     setEdit(false);
@@ -126,14 +128,15 @@ const Table = ({ data, type }) => {
   //this is the function for delete user
   const handleDelete = async (id) => {
     try {
-      await fetch(`${BASE_URL}api/delete/${id}`, {
+      const response = await fetch(`${BASE_URL}api/delete/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
-      toast.success("Delete Success");
+      const data = await response.json();
+      toast.success(data.message);
       router.refresh();
     } catch (error) {
-      toast.error("Delete Failed");
+      toast.error(error.message);
       console.error(error);
     }
   };
@@ -144,7 +147,10 @@ const Table = ({ data, type }) => {
       {type !== "user" && (
         <div className={styles["app-content-header"]}>
           <h1 className={styles["app-content-headerText"]}>Users</h1>
-          <button className={styles["app-content-headerButton"]} onClick={() => setAdd(true)}>
+          <button
+            className={styles["app-content-headerButton"]}
+            onClick={() => setAdd(true)}
+          >
             Add User
           </button>
         </div>
@@ -152,35 +158,49 @@ const Table = ({ data, type }) => {
       <div className={cls(styles["products-area-wrapper"], styles.tableView)}>
         <div className={styles["products-header"]}>
           <div className={cls(styles["product-cell"], styles.image)}>Name</div>
-          <div className={cls(styles["product-cell"], styles["status-cell"])}>Status</div>
-          <div className={cls(styles["product-cell"], styles.sales)}>Create Date</div>
+          <div className={cls(styles["product-cell"], styles["status-cell"])}>
+            Status
+          </div>
+          <div className={cls(styles["product-cell"], styles.sales)}>
+            Create Date
+          </div>
           <div className={cls(styles["product-cell"], styles.stock)}>Type</div>
           <div className={cls(styles["product-cell"], styles.price)}>Role</div>
           <div className={cls(styles["product-cell"], styles.price)}>View</div>
-          <div className={cls(styles["product-cell"], styles.price)}>Delete</div>
+          <div className={cls(styles["product-cell"], styles.price)}>
+            Delete
+          </div>
         </div>
 
         {/*This is the body for the table */}
         {data?.map((item) => {
           const date = new Date(item.createdAt);
-          const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+          const formattedDate = `${date.getDate()}-${
+            date.getMonth() + 1
+          }-${date.getFullYear()}`;
           return (
             <div key={item._id} className={cls(styles["products-row"])}>
               <div className={cls(styles["product-cell"], styles.flex)}>
                 <img
                   className={styles.image}
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                  src="https://avatars.githubusercontent.com/u/39374797?v=4"
                   alt="product"
                 />
                 <span>{item.email}</span>
               </div>
 
-              <div className={cls(styles["product-cell"], styles["status-cell"])}>
+              <div
+                className={cls(styles["product-cell"], styles["status-cell"])}
+              >
                 <span className={styles["cell-label"]}>Status:</span>
                 {item.active ? (
-                  <span className={cls(styles.status, styles.active)}>Active</span>
+                  <span className={cls(styles.status, styles.active)}>
+                    Active
+                  </span>
                 ) : (
-                  <span className={cls(styles.status, styles.disabled)}>Disabled</span>
+                  <span className={cls(styles.status, styles.disabled)}>
+                    Disabled
+                  </span>
                 )}
               </div>
               <div className={cls(styles["product-cell"], styles.category)}>
@@ -197,7 +217,10 @@ const Table = ({ data, type }) => {
               </div>
 
               <div className={cls(styles["product-cell"], styles.price)}>
-                <button className={styles["edit-button"]} onClick={() => handleEdit(item)}>
+                <button
+                  className={styles["edit-button"]}
+                  onClick={() => handleEdit(item)}
+                >
                   View User
                 </button>
               </div>
@@ -233,10 +256,16 @@ const Table = ({ data, type }) => {
                     </div>
                     <div className={styles["form-item"]}>
                       <label>Role:</label>
-                      <select name="role" value={currentUser.role} onChange={handleInputChange}>
+                      <select
+                        name="role"
+                        value={currentUser.role}
+                        onChange={handleInputChange}
+                      >
                         <option value="user">user</option>
                         <option value="admin">admin</option>
-                        {role == "superadmin" && <option value="superadmin">superadmin</option>}
+                        {role == "superadmin" && (
+                          <option value="superadmin">superadmin</option>
+                        )}
                       </select>
                     </div>
                     <div className={styles["nav-button-container"]}>
@@ -259,7 +288,10 @@ const Table = ({ data, type }) => {
               {/* This is the add modal for the table */}
               {add && (
                 <div className={styles.modal}>
-                  <form className={styles["modal-content"]} onSubmit={handleAdd}>
+                  <form
+                    className={styles["modal-content"]}
+                    onSubmit={handleAdd}
+                  >
                     <div className={styles["modal-title"]}>Add User</div>
                     <div className={styles["form-item"]}>
                       <label>Email Id:</label>
@@ -289,7 +321,11 @@ const Table = ({ data, type }) => {
                     </div>
                     <div className={styles["form-item"]}>
                       <label>Role:</label>
-                      <select name="role" value={addUser.role} onChange={handleAddRoleChange}>
+                      <select
+                        name="role"
+                        value={addUser.role}
+                        onChange={handleAddRoleChange}
+                      >
                         <option value="user">user</option>
                         {role == "superadmin" && (
                           <>
@@ -317,7 +353,10 @@ const Table = ({ data, type }) => {
               )}
 
               <div className={cls(styles["product-cell"], styles.price)}>
-                <button className={styles["delete-button"]} onClick={() => handleDelete(item._id)}>
+                <button
+                  className={styles["delete-button"]}
+                  onClick={() => handleDelete(item._id)}
+                >
                   Delete User
                 </button>
               </div>

@@ -26,14 +26,13 @@ const Login = () => {
         body: JSON.stringify(formData),
         credentials: "include",
       });
-      if (!response.ok) {
-        toast.error("Login failed");
-        throw new Error("Login failed");
-      }
+
+      const data = await response.json();
+      router.refresh();
       router.push("/Dashboard");
-      toast.success("Login Success");
+      toast.success(data.message);
     } catch (error) {
-      toast.error("Login failed");
+      toast.error(error.message);
       console.log(error.message);
     }
   };
@@ -83,7 +82,11 @@ const Login = () => {
             Password
           </label>
           <div className={styles["input-container"]}>
-            <img src="/images/lock.svg" alt="lock" className={styles["image"]} />
+            <img
+              src="/images/lock.svg"
+              alt="lock"
+              className={styles["image"]}
+            />
             <input
               id="password"
               autoComplete="off"

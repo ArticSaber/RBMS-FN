@@ -21,6 +21,11 @@ export async function PUT(req, { params }) {
       return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
     }
 
+    const checkisadmin = await authSchema.findById(id);
+    if (checkisadmin.role === "superadmin" && Role !== "superadmin"){
+      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+    }
+
     // Update the user in the database
     await authSchema.findByIdAndUpdate(id, data, {
       new: true,

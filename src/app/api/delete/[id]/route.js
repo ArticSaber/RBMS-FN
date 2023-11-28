@@ -18,8 +18,14 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
     }
     
+    const checkisadmin = await authSchema.findById(id);
+    if (checkisadmin.role === "superadmin" && Role !== "superadmin"){
+      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+    }
+
+
     // Delete the user with the given ID from the database
-    await Promise.resolve(authSchema.findByIdAndDelete(id));
+    await authSchema.findByIdAndDelete(id);
     
     // Return a success message
     return NextResponse.json(
