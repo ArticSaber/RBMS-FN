@@ -6,7 +6,7 @@ import dbConnection from "../../utils/db.js";
 // Establishing a connection to the database
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
-export async function GET(req, { params }) {
+export async function GET({ params }) {
   try {
     // Retrieve the user ID from the parameters
     const userId = params.userid;
@@ -23,6 +23,6 @@ export async function GET(req, { params }) {
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     // If an error occurs, return the error message with a 500 status code
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 502 });
   }
 }

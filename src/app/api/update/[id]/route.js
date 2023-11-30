@@ -18,12 +18,12 @@ export async function PUT(req, { params }) {
     // Check the role of the user making the request
     const Role = await role();
     if (Role !== "superadmin" && Role !== "admin") {
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+      return NextResponse.json({ message: "Not Allowed" }, { status: 403 });
     }
 
     const checkisadmin = await authSchema.findById(id);
     if (checkisadmin.role === "superadmin" && Role !== "superadmin"){
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+      return NextResponse.json({ message: "Not Allowed" }, { status: 403 });
     }
 
     // Update the user in the database
@@ -38,6 +38,6 @@ export async function PUT(req, { params }) {
     );
   } catch (error) {
     // If an error occurs, return the error message with a 500 status code
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 502 });
   }
 }

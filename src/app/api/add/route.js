@@ -30,7 +30,7 @@ export async function POST(req) {
     // Check the role of the user making the request
     const Role = await role();
     if (Role !== "superadmin" && Role !== "admin") {
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+      return NextResponse.json({ message: "Not Allowed" }, { status: 403 });
     }
 
     // Check if the email already exists in the database
@@ -38,7 +38,7 @@ export async function POST(req) {
     if (existinguser) {
       return NextResponse.json(
         { message: "User with this email already exists" },
-        { status: 400 }
+        { status: 409 }
       );
     }
 
@@ -52,6 +52,6 @@ export async function POST(req) {
     );
   } catch (error) {
     // Return the error message
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 502 });
   }
 }

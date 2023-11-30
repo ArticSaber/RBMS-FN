@@ -25,6 +25,6 @@ export async function POST(req) {
     return NextResponse.json(list, { status: 200 });
   } catch (error) {
     // If an error occurs, return the error message with a 500 status code
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 502 });
   }
 }

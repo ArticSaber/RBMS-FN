@@ -15,12 +15,12 @@ export async function DELETE(req, { params }) {
     // Check the role of the user making the request
     const Role = await role();
     if (Role !== "superadmin" && Role !== "admin") {
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+      return NextResponse.json({ message: "Not Allowed" }, { status: 403 });
     }
     
     const checkisadmin = await authSchema.findById(id);
     if (checkisadmin.role === "superadmin" && Role !== "superadmin"){
-      return NextResponse.json({ message: "Not Allowed" }, { status: 400 });
+      return NextResponse.json({ message: "Not Allowed" }, { status: 403 });
     }
 
 
@@ -34,6 +34,6 @@ export async function DELETE(req, { params }) {
     );
   } catch (error) {
     // Return the error message
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 502 });
   }
 }
