@@ -6,7 +6,7 @@ import dbConnection from "../../utils/db.js";
 // Establishing a connection to the database
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
-export async function GET({ params }) {
+export async function GET(req,{ params }) {
   try {
     // Retrieve the user ID from the parameters
     const userId = params.userid;

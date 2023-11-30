@@ -15,11 +15,11 @@ const Page = async () => {
   return (
     <div className={styles.card}>
       <h1>Dashboard</h1>
-      <h2>Welcome {user.email.split("@")[0]}</h2>
+      <h2>Welcome {user?.email.split("@")[0]}</h2>
       <div>
-        <p>Email: {user.email}</p>
-        <p>Role: {user.role}</p>
-        <p>Active: {user.active ? "Yes" : "No"}</p>
+        <p>Email: {user?.email}</p>
+        <p>Role: {user?.role}</p>
+        <p>Active: {user?.active ? "Yes" : "No"}</p>
       </div>
     </div>
   );
